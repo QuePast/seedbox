@@ -1,19 +1,19 @@
-# FitGirl Torrents RSS Generator
+# FitGirl Repacks RSS Generator
 
-This script scrapes the FitGirl user page on 1337x.to, extracts magnet links directly from torrent pages, and generates an RSS feed that can be used with qBittorrent for automatic downloads.
+This script generates an RSS feed with magnet links for the latest FitGirl Repacks by parsing the official RSS feed from https://fitgirl-repacks.site/feed/.
 
 ## Features
 
-- Scrapes the FitGirl user page on 1337x.to
-- Extracts magnet links directly from torrent pages
-- Focuses only on the 10 most recent torrents
-- Stores torrent data in a JSON file for persistence
+- Uses the official FitGirl Repacks RSS feed
+- Extracts magnet links directly from the feed content
+- Focuses only on the 8 most recent game repacks
 - Creates an RSS feed with magnet links for qBittorrent
-- Respects the website by using random delays between requests
+- Automatically runs via GitHub Actions
+- Stateless design - no local storage needed
 
 ## Automated RSS Feed
 
-This script is automatically run every 30 minutes via GitHub Actions to provide an up-to-date RSS feed of the latest FitGirl torrents.
+This script is automatically run every 6 hours via GitHub Actions to provide an up-to-date RSS feed of the latest FitGirl repacks.
 
 ### Using the RSS Feed in qBittorrent
 
@@ -26,13 +26,13 @@ This script is automatically run every 30 minutes via GitHub Actions to provide 
    ```
 5. Set up auto-downloading rules as needed
 
-The RSS feed contains magnet links for the 10 most recent FitGirl torrents and is updated every 30 minutes.
+The RSS feed contains magnet links for the 8 most recent FitGirl repacks and is updated every 6 hours.
 
 ### GitHub Actions Workflow
 
 The script is automatically run using GitHub Actions:
-- Runs every 30 minutes
-- Updates the RSS feed with the latest torrents
+- Runs every 6 hours
+- Updates the RSS feed with the latest repacks
 - Commits and pushes changes to this repository
 
 You can also manually trigger the workflow by going to the Actions tab and running the "Update FitGirl RSS Feed" workflow.
@@ -40,55 +40,36 @@ You can also manually trigger the workflow by going to the Actions tab and runni
 ## Requirements
 
 - Python 3.6+
-- Required packages: requests, beautifulsoup4
+- Required packages: requests
 
-## Installation
+## Local Usage
 
-1. Clone or download this repository
+If you want to run the script locally:
+
+1. Clone this repository
 2. Install the required packages:
+   ```
+   pip install requests
+   ```
+3. Run the script:
+   ```
+   python fitgirl_rss.py
+   ```
 
-```
-pip install -r requirements.txt
-```
+## How It Works
 
-## Usage
-
-1. Run the script:
-
-```
-python main.py
-```
-
-2. The script will:
-   - Check for new torrents on the FitGirl user page
-   - Extract magnet links for new torrents
-   - Create/update an RSS feed file (`fitgirl_torrents.xml`)
-   - Store torrent data in `torrents_data.json`
-
-3. Set up qBittorrent to use the RSS feed:
-   - Open qBittorrent
-   - Go to View > RSS Reader
-   - Click "New subscription"
-   - Enter the path to your `fitgirl_torrents.xml` file as a URL (use the file:// protocol)
-   - Set up auto-downloading rules as needed
-
-## Scheduling
-
-You can set up a scheduled task (using cron on Linux or Task Scheduler on Windows) to run the script periodically to check for new torrents.
-
-### Windows Task Scheduler Example
-
-1. Open Task Scheduler
-2. Create a new Basic Task
-3. Set the trigger (e.g., daily)
-4. Set the action to "Start a program"
-5. Browse to your Python executable and add the path to the script as an argument
+1. The script fetches the official RSS feed from FitGirl's website
+2. It parses the feed to extract magnet links from the content
+3. It filters out non-game posts (like updates, upcoming releases, etc.)
+4. It generates an RSS feed with the magnet links
+5. The RSS feed is committed to the repository
 
 ## Notes
 
-- The script is set to process only the 10 most recent torrents. You can change this by modifying the `MAX_TORRENTS` constant.
-- The script uses random delays between requests to avoid being blocked.
-- Torrent data is saved after each torrent is processed to avoid data loss if the script crashes.
+- The script is set to process only the 8 most recent game repacks. You can change this by modifying the `MAX_TORRENTS` constant.
+- The script includes retry logic to handle connection issues.
+- Non-game posts (like updates, upcoming releases, etc.) are automatically filtered out.
+- The script is stateless - it doesn't store any data between runs, making it simpler and more reliable.
 
 ## Disclaimer
 
