@@ -1,6 +1,8 @@
+name: Update FitGirl RSS Feed
+
 on:
   schedule:
-    - cron: '*/30 * * * *'  # Run every 30 minutes
+    - cron: '0 */6 * * *'  # Run every 6 hours
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
@@ -21,20 +23,11 @@ jobs:
           pip install requests beautifulsoup4
           
       - name: Run RSS generator
-        run: python main.py
+        run: python fitgirl_rss.py
         
       - name: Commit and push if changed
         run: |
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
-          # List all files in the directory to debug
-          ls -la
-          # Try to add any new files
-          git add -A
-          # Check if there are changes to commit
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Update RSS feed"
-            git push
-          fi
+          git add fitgirl_torrents.xml torrents_data.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update RSS feed" && git push)
