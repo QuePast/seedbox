@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests beautifulsoup4
+          pip install requests
           
       - name: Run RSS generator
         run: python fitgirl_rss.py
@@ -29,5 +29,5 @@ jobs:
         run: |
           git config --global user.name 'GitHub Actions'
           git config --global user.email 'actions@github.com'
-          git add fitgirl_torrents.xml torrents_data.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Update RSS feed" && git push)
+          git add fitgirl_torrents.xml
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update RSS feed" && git push) 
