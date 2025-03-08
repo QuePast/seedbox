@@ -5,6 +5,7 @@ import xml.etree.ElementTree as ET
 from xml.dom import minidom
 import random
 import time
+import html
 
 # Constants
 USER_AGENTS = [
@@ -57,6 +58,20 @@ def get_feed():
     
     return None
 
+def clean_html_entities(text):
+    """Clean HTML entities from text."""
+    # First use the html module to unescape standard HTML entities
+    text = html.unescape(text)
+    
+    # Then handle WordPress specific entities like &#038;
+    text = re.sub(r'&#0*38;', '&', text)
+    text = re.sub(r'&#x0*26;', '&', text)
+    
+    # Replace any remaining &amp; with &
+    text = text.replace('&amp;', '&')
+    
+    return text
+
 def extract_torrents(feed_content):
     """Extract torrent information from the feed content."""
     if not feed_content:
@@ -81,7 +96,7 @@ def extract_torrents(feed_content):
             if not title_match:
                 continue
             title = title_match.group(1)
-            title = title.replace('&#8211;', '-').replace('&#8217;', "'").replace('&amp;', '&')
+            title = clean_html_entities(title)
             
             # Skip non-game posts (like updates, upcoming, etc.)
             skip_keywords = ['upcoming', 'updates', 'moved', 'updated', 'schedule', 'site news']
@@ -113,10 +128,13 @@ def extract_torrents(feed_content):
             if not magnet_match:
                 print(f"No magnet link found for: {title}")
                 continue
-            magnet = magnet_match.group(1)
             
-            # Unescape HTML entities in the magnet link
-            magnet = magnet.replace('&amp;', '&')
+            # Get the magnet link and clean HTML entities
+            magnet = magnet_match.group(1)
+            magnet = clean_html_entities(magnet)
+            
+            # Print the magnet link for debugging
+            print(f"Magnet link: {magnet[:60]}...")
             
             results.append({
                 'title': title,
