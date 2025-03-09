@@ -1,6 +1,6 @@
 # FitGirl Repacks RSS Generator
 
-I made this script as long time fitgirl torrent user. I wanted to automatically download torrents through RSS feed and seed them to very high ratio and then delete them. This is how my personal seedbox works.
+I made this script as long time fitgirl torrent user as another form of donations. I wanted to automatically download torrents through RSS feed and seed them to very high ratio and then delete them. This is how my personal seedbox works.
 This script generates an RSS feed with magnet links for the latest FitGirl Repacks by parsing the official RSS feed from https://fitgirl-repacks.site/feed/.
 
 ## Features
