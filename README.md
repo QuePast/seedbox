@@ -14,7 +14,7 @@ This script generates an RSS feed with magnet links for the latest FitGirl Repac
 
 ## Automated RSS Feed
 
-This script is automatically run every 6 hours via GitHub Actions to provide an up-to-date RSS feed of the latest FitGirl repacks.
+This script is automatically run every 1 hour via GitHub Actions to provide an up-to-date RSS feed of the latest FitGirl repacks.
 
 ### Using the RSS Feed in qBittorrent
 
