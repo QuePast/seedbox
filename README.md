@@ -7,7 +7,7 @@ This script generates an RSS feed with magnet links for the latest FitGirl Repac
 
 - Uses the official FitGirl Repacks RSS feed
 - Extracts magnet links directly from the feed content
-- Focuses only on the 8 most recent game repacks
+- Focuses only on the 8 most recent game repacks aka. "first page"
 - Creates an RSS feed with magnet links for qBittorrent
 - Automatically runs via GitHub Actions
 - Stateless design - no local storage needed
