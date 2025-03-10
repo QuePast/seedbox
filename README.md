@@ -3,14 +3,13 @@
 I made this script as long time fitgirl torrent user as another form of donation. I wanted to automatically download torrents through RSS feed and seed them to very high ratio and then delete them. This is how my personal seedbox works.
 This script generates an RSS feed with magnet links for the latest FitGirl Repacks by parsing the official RSS feed from https://fitgirl-repacks.site/feed/.
 
-## Features
+## How It Works
 
-- Uses the official FitGirl Repacks RSS feed
-- Extracts magnet links directly from the feed content
-- Focuses only on the 8 most recent game repacks aka. "first page"
-- Creates an RSS feed with magnet links for qBittorrent
-- Automatically runs via GitHub Actions
-- Stateless design - no local storage needed
+1. The script fetches the official RSS feed from FitGirl's website
+2. It parses the feed to extract magnet links from the content
+3. It filters out non-game posts (like updates, upcoming releases, etc.)
+4. It generates an RSS feed with the magnet links
+5. The RSS feed is committed to the repository
 
 ## Automated RSS Feed
 
@@ -56,22 +55,3 @@ If you want to run the script locally:
    ```
    python fitgirl_rss.py
    ```
-
-## How It Works
-
-1. The script fetches the official RSS feed from FitGirl's website
-2. It parses the feed to extract magnet links from the content
-3. It filters out non-game posts (like updates, upcoming releases, etc.)
-4. It generates an RSS feed with the magnet links
-5. The RSS feed is committed to the repository
-
-## Notes
-
-- The script is set to process only the 8 most recent game repacks. You can change this by modifying the `MAX_TORRENTS` constant.
-- The script includes retry logic to handle connection issues.
-- Non-game posts (like updates, upcoming releases, etc.) are automatically filtered out.
-- The script is stateless - it doesn't store any data between runs, making it simpler and more reliable.
-
-## Disclaimer
-
-This script is for educational purposes only. Only download content that you have the legal right to access. 
