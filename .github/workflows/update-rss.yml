@@ -2,7 +2,7 @@ name: Update FitGirl RSS Feed
 
 on:
   schedule:
-    - cron: '0 */1 * * *'  # Run every 1 hour
+    - cron: '0 */12 * * *'  # Run every 1 hour
   workflow_dispatch:  # Allow manual trigger
 
 jobs:
